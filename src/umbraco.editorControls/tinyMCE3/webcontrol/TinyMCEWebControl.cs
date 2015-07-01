@@ -387,11 +387,14 @@ namespace umbraco.editorControls.tinyMCE3.webcontrol
 
         private string getIdFromSource(string src, string rootMediaUrl)
         {
-            if (!rootMediaUrl.EndsWith("/"))
-                rootMediaUrl += "/";
+            if (!string.IsNullOrWhiteSpace(rootMediaUrl))
+            {
+                if (!rootMediaUrl.EndsWith("/"))
+                    rootMediaUrl += "/";
 
-            // important - remove out the rootMediaUrl!
-            src = src.Replace(rootMediaUrl, "");
+                // important - remove out the rootMediaUrl!
+                src = src.Replace(rootMediaUrl, "");
+            }
 
             string _id = "";
 
