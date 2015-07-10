@@ -104,7 +104,9 @@ namespace Umbraco.Core.IO
             if (useHttpContext && HttpContext.Current != null)
             {
                 //string retval;
-                if (!string.IsNullOrEmpty(path) && (path.StartsWith("~") || path.StartsWith(SystemDirectories.Root)))
+                 if (path.StartsWith("http"))
+                    return path; //returns path if its a fully qualified URL 
+                else if(!string.IsNullOrEmpty(path) && (path.StartsWith("~") || path.StartsWith(SystemDirectories.Root)))
                     return System.Web.Hosting.HostingEnvironment.MapPath(path);
                 else
                     return System.Web.Hosting.HostingEnvironment.MapPath("~/" + path.TrimStart('/'));
