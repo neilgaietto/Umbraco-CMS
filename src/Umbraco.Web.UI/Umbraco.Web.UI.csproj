@@ -2243,7 +2243,7 @@
     </Content>
     <Content Include="Umbraco\ping.aspx">
       <SubType>Form</SubType>
-    </Content>	
+    </Content>
     <Content Include="Umbraco\publishStatus.aspx" />
     <Content Include="Umbraco\Settings\EditDictionaryItem.aspx" />
     <Content Include="Umbraco\Settings\editLanguage.aspx" />
