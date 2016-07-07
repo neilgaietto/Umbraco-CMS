@@ -133,3 +133,9 @@ build/UmbracoCms.*/
 src/.vs/
 src/Umbraco.Web.UI/umbraco/js/install.loader.js
 src/Umbraco.Tests/media
+
+
+
+TestSite/App_Data/*
+TestSite/Umbraco/*
+TestSite/Umbraco_Client/*
