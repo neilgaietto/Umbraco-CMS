@@ -174,6 +174,11 @@ namespace umbraco.DataLayer.Extensions
             return m_SqlHelper.ExecuteReader(commandText, parameters);
         }
 
+        public IRecordsReader ExecuteReaderIncreasedTimeout(string commandText, params IParameter[] parameters)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Executes a command that returns a single value.
         /// </summary>

@@ -865,7 +865,6 @@
     </Compile>
     <Compile Include="umbraco.presentation\umbraco\helpRedirect.aspx.cs">
       <DependentUpon>helpRedirect.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="umbraco.presentation\umbraco\helpRedirect.aspx.designer.cs">
       <DependentUpon>helpRedirect.aspx</DependentUpon>

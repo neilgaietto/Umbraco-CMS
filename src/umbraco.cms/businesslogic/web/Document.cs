@@ -592,7 +592,7 @@ order by {1}
         {
             var documents = new List<Document>();
             using (var dr =
-                SqlHelper.ExecuteReader(
+                SqlHelper.ExecuteReaderIncreasedTimeout(
                                         string.Format(SqlOptimizedMany.Trim(), "umbracoNode.parentID = @parentId", "umbracoNode.sortOrder"),
                                         SqlHelper.CreateParameter("@nodeObjectType", Document._objectType),
                                         SqlHelper.CreateParameter("@parentId", nodeId)))

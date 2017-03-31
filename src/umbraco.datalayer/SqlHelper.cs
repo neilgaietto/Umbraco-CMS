@@ -8,9 +8,12 @@
 
 using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
+using Microsoft.ApplicationBlocks.Data;
+using umbraco.DataLayer.SqlHelpers.SqlServer;
 using umbraco.DataLayer.Utility;
 using Umbraco.Core.Logging;
 
@@ -256,6 +259,54 @@ namespace umbraco.DataLayer
             {
                 LogHelper.Error<SqlHelper<P>>(string.Format("Error executing query {0}", commandText), e);
                 throw new SqlHelperException("ExecuteReader", commandText, parameters, e);
+            }
+        }
+
+        /// <summary>
+        /// When 30 seconds isnt enough
+        /// </summary>
+        /// <param name="commandText"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public IRecordsReader ExecuteReaderIncreasedTimeout(string commandText, params IParameter[] parameters)
+        {
+            string commandConverted = ConvertCommand(commandText);
+            P[] parametersConverted = ConvertParameters(parameters);
+            try
+            {
+                SqlConnection connection = new SqlConnection(ConnectionString);
+                connection.Open();
+                try
+                {
+                    SqlCommand command = new SqlCommand();
+
+                    if (connection.State != ConnectionState.Open)
+                        connection.Open();
+                    command.Connection = connection;
+                    command.CommandText = commandText;
+                    command.CommandType = CommandType.Text;
+                    command.CommandTimeout = 300;
+                    foreach (P commandParameter in parametersConverted)
+                    {
+                        if (commandParameter.Direction == ParameterDirection.InputOutput && commandParameter.Value == null)
+                            commandParameter.Value = (object)DBNull.Value;
+                        command.Parameters.Add(commandParameter);
+                    }
+                    SqlDataReader sqlDataReader =  command.ExecuteReader(CommandBehavior.CloseConnection);
+                    command.Parameters.Clear();
+                    return new SqlServerDataReader(sqlDataReader);
+                    
+                }
+                catch
+                {
+                    connection.Close();
+                    throw;
+                }
+            }
+            catch (Exception e)
+            {
+                LogHelper.Error<SqlHelper<P>>(string.Format("Error executing query {0}", commandText), e);
+                throw new SqlHelperException("ExecuteReaderIncreasedTimeout", commandText, parameters, e);
             }
         }
 

@@ -45,11 +45,13 @@ namespace SqlCE4Umbraco
             }
         }
 
+
         /// <summary>
         /// Most likely only will be used for unit tests but will remove all tables from the database
         /// </summary>
         internal void ClearDatabase()
         {
+            /*--this is broke - i dont use it so im not fixing it
             var localConnection = new SqlCeConnection(ConnectionString);
             if (System.IO.File.Exists(ReplaceDataDirectory(localConnection.Database)))
             {
@@ -79,7 +81,7 @@ namespace SqlCE4Umbraco
                         }
                     }
                 }
-            }
+            }*/
         }
 
         /// <summary>

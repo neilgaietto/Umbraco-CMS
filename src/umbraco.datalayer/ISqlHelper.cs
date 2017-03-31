@@ -75,6 +75,14 @@ namespace umbraco.DataLayer
         IRecordsReader ExecuteReader(string commandText, params IParameter[] parameters);
 
         /// <summary>
+        /// When 30 seconds isnt enough
+        /// </summary>
+        /// <param name="commandText"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        IRecordsReader ExecuteReaderIncreasedTimeout(string commandText, params IParameter[] parameters);
+
+        /// <summary>
         /// Executes a command that returns a single value.
         /// </summary>
         /// <typeparam name="ScalarType">The type of the value.</typeparam>
